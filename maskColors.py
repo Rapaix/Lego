@@ -3,6 +3,25 @@ import numpy as np
 
 
 def main():
+
+    redColor = (0,0,255)
+    yellowColor = (0,255,255)
+    greenColor = (0,255,0)
+    cyanColor = (255,255,0)
+    blueColor = (255,0,0)
+    purpleColor = (130,0,75)
+    magentaColor = (255,0,255)
+
+
+
+    def boundingColor(maskColor, color):
+        (_, cnts, hierarchy) = cv.findContours(maskColor, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)
+        for c in cnts:
+            area = cv.contourArea(c)
+            if area > 300:
+                x, y, w, h = cv.boundingRect(c)
+                copy = cv.rectangle(copy, (x, y), (x + w, y + h), (color), 2)
+
     # Aquisição da iamgem
     img = cv.imread('images/lego.jpg')
     copy = cv.resize(img.copy(), (300, 300))
@@ -33,7 +52,6 @@ def main():
     magenta_lower = np.array([166, 100, 100], np.uint8)
     magenta_upper = np.array([180, 255, 255], np.uint8)
 
-
     # range of colors
 
     red = cv.inRange(hsv, red_lower, red_upper)
@@ -48,30 +66,79 @@ def main():
     maskTotal = red + yellow + green + cyan + blue + purple + magenta
     colors = cv.bitwise_and(copy, copy, mask=maskTotal)
 
-    cv.imshow(" maskara", colors)
+    cv.imshow(" maskara", cyan)
 
-#TO DO fazer bounding box para cada cor
-    #alterar os parametros para a  deteccao de retangulos
-    thresh = cv.adaptiveThreshold(maskTotal, 255, cv.ADAPTIVE_THRESH_GAUSSIAN_C, cv.THRESH_BINARY, 15, 3)
-    cv.imshow("Gaussian Thresh", thresh)
+# TO DO fazer bounding box para cada cor
+    # alterar os parametros para a  deteccao de retangulos
+#    thresh = cv.adaptiveThreshold(maskTotal, 255, cv.ADAPTIVE_THRESH_GAUSSIAN_C, cv.THRESH_BINARY, 15, 3)
+#    cv.imshow("Gaussian Thresh", thresh)
 
-    (im2,cnts, hier) = cv.findContours(maskTotal, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)
-    #cnts = sorted(cnts, key = cv.contourArea, reverse= True)[:10]
+    (im2, cnts, hier) = cv.findContours(red, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)
+    # cnts = sorted(cnts, key = cv.contourArea, reverse= True)[:10]
 
-    retas =[]
+
 
     for c in cnts:
-        peri = cv.arcLength(c, True)
-        approx = cv.approxPolyDP(c, 0.1 * peri, True)
+        area = cv.contourArea(c)
+        if area > 300:
 
-        if len(approx) >= 4:
-            retas.append(approx)
+            x, y, w, h = cv.boundingRect(c)
+            copy = cv.rectangle(copy, (x, y), (x + w, y + h), (0, 0, 255), 2)
+            cv.putText(copy, "", (x, y), cv.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255))
 
-    cv.drawContours(copy, retas, -1, (0, 0, 255), 3)
+    (_, cnts, hierarchy) = cv.findContours(cyan, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)
+    for c in cnts:
+        area = cv.contourArea(c)
+        if area > 300:
+            x, y, w, h = cv.boundingRect(c)
+            copy = cv.rectangle(copy, (x, y), (x + w, y + h), (255, 0, 0), 2)
+            cv.putText(copy, "", (x, y), cv.FONT_HERSHEY_SIMPLEX, 0.7, (255, 0, 0))
+
+    # Tracking the yellow Color
+    (_, cnts, hierarchy) = cv.findContours(yellow, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)
+    for c in cnts:
+        area = cv.contourArea(c)
+        if area > 300:
+            x, y, w, h = cv.boundingRect(c)
+            copy = cv.rectangle(copy, (x, y), (x + w, y + h), (13, 217, 232), 2)
+            cv.putText(img, "", (x, y), cv.FONT_HERSHEY_SIMPLEX, 1.0, (255, 255, 0))
+
+    (_, cnts, hierarchy) = cv.findContours(green, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)
+    for c in cnts:
+        area = cv.contourArea(c)
+        if area > 300:
+            x, y, w, h = cv.boundingRect(c)
+            copy = cv.rectangle(copy, (x, y), (x + w, y + h), (0, 255, 0), 2)
+            cv.putText(img, "Green  color", (x, y), cv.FONT_HERSHEY_SIMPLEX, 1.0, (0, 255, 0))
+
+    (_, cnts, hierarchy) = cv.findContours(purple, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)
+    for c in cnts:
+        area = cv.contourArea(c)
+        if area > 300:
+            x, y, w, h = cv.boundingRect(c)
+            copy = cv.rectangle(copy, (x, y), (x + w, y + h), (232, 91, 13), 2)
+            cv.putText(img, "yellow  color", (x, y), cv.FONT_HERSHEY_SIMPLEX, 1.0, (232, 91,13 ))
+
+    (_, cnts, hierarchy) = cv.findContours(magenta, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)
+    for c in cnts:
+        area = cv.contourArea(c)
+        if area > 300:
+            x, y, w, h = cv.boundingRect(c)
+            copy = cv.rectangle(copy, (x, y), (x + w, y + h), (0, 255, 0), 2)
+            cv.putText(img, "Magenta  color", (x, y), cv.FONT_HERSHEY_SIMPLEX, 1.0, (0, 255, 0))
+
+    (_, cnts, hierarchy) = cv.findContours(blue, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)
+    for c in cnts:
+        area = cv.contourArea(c)
+        if area > 300:
+            x, y, w, h = cv.boundingRect(c)
+            copy = cv.rectangle(copy, (x, y), (x + w, y + h), (0, 255, 0), 2)
+            cv.putText(img, "Blue  color", (x, y), cv.FONT_HERSHEY_SIMPLEX, 1.0, (0, 255, 0))
 
     cv.imshow("", copy)
     cv.waitKey(0)
     cv.destroyAllWindows()
+
 
 if __name__ == '__main__':
     main()
