@@ -91,7 +91,7 @@ def main():
         area = cv.contourArea(c)
         if area > 300:
             x, y, w, h = cv.boundingRect(c)
-            copy = cv.rectangle(copy, (x, y), (x + w, y + h), (255, 0, 0), 2)
+            copy = cv.rectangle(red, (x, y), (x + w, y + h), (255, 0, 0), 2)
             cv.putText(copy, "", (x, y), cv.FONT_HERSHEY_SIMPLEX, 0.7, (255, 0, 0))
 
     # Tracking the yellow Color
@@ -136,6 +136,7 @@ def main():
             cv.putText(img, "Blue  color", (x, y), cv.FONT_HERSHEY_SIMPLEX, 1.0, (0, 255, 0))
 
     cv.imshow("", copy)
+    cv.imshow("img", img)
     cv.waitKey(0)
     cv.destroyAllWindows()
 
