@@ -25,6 +25,7 @@ def main():
     # Aquisição da iamgem
     img = cv.imread('images/lego.jpg')
     copy = cv.resize(img.copy(), (300, 300))
+    img = cv.resize(img, (300, 300))
     cv.imshow("img", copy)
     hsv = cv.cvtColor(copy, cv.COLOR_BGR2HSV)
 
@@ -66,24 +67,24 @@ def main():
     maskTotal = red + yellow + green + cyan + blue + purple + magenta
     colors = cv.bitwise_and(copy, copy, mask=maskTotal)
 
-    cv.imshow(" maskara", cyan)
+
 
 # TO DO fazer bounding box para cada cor
     # alterar os parametros para a  deteccao de retangulos
 #    thresh = cv.adaptiveThreshold(maskTotal, 255, cv.ADAPTIVE_THRESH_GAUSSIAN_C, cv.THRESH_BINARY, 15, 3)
 #    cv.imshow("Gaussian Thresh", thresh)
 
-    (im2, cnts, hier) = cv.findContours(red, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)
     # cnts = sorted(cnts, key = cv.contourArea, reverse= True)[:10]
 
 
+    (_, cnts, hier) = cv.findContours(red, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)
 
     for c in cnts:
         area = cv.contourArea(c)
         if area > 300:
 
             x, y, w, h = cv.boundingRect(c)
-            copy = cv.rectangle(copy, (x, y), (x + w, y + h), (0, 0, 255), 2)
+            img = cv.rectangle(img, (x, y), (x + w, y + h), (0, 0, 255), 2)
             cv.putText(copy, "", (x, y), cv.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255))
 
     (_, cnts, hierarchy) = cv.findContours(cyan, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)
@@ -91,7 +92,7 @@ def main():
         area = cv.contourArea(c)
         if area > 300:
             x, y, w, h = cv.boundingRect(c)
-            copy = cv.rectangle(red, (x, y), (x + w, y + h), (255, 0, 0), 2)
+            img = cv.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
             cv.putText(copy, "", (x, y), cv.FONT_HERSHEY_SIMPLEX, 0.7, (255, 0, 0))
 
     # Tracking the yellow Color
@@ -100,7 +101,7 @@ def main():
         area = cv.contourArea(c)
         if area > 300:
             x, y, w, h = cv.boundingRect(c)
-            copy = cv.rectangle(copy, (x, y), (x + w, y + h), (13, 217, 232), 2)
+            img = cv.rectangle(img, (x, y), (x + w, y + h), (13, 217, 232), 2)
             cv.putText(img, "", (x, y), cv.FONT_HERSHEY_SIMPLEX, 1.0, (255, 255, 0))
 
     (_, cnts, hierarchy) = cv.findContours(green, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)
@@ -108,16 +109,16 @@ def main():
         area = cv.contourArea(c)
         if area > 300:
             x, y, w, h = cv.boundingRect(c)
-            copy = cv.rectangle(copy, (x, y), (x + w, y + h), (0, 255, 0), 2)
-            cv.putText(img, "Green  color", (x, y), cv.FONT_HERSHEY_SIMPLEX, 1.0, (0, 255, 0))
+            img = cv.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
+            cv.putText(img, "", (x, y), cv.FONT_HERSHEY_SIMPLEX, 1.0, (0, 255, 0))
 
     (_, cnts, hierarchy) = cv.findContours(purple, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)
     for c in cnts:
         area = cv.contourArea(c)
         if area > 300:
             x, y, w, h = cv.boundingRect(c)
-            copy = cv.rectangle(copy, (x, y), (x + w, y + h), (232, 91, 13), 2)
-            cv.putText(img, "yellow  color", (x, y), cv.FONT_HERSHEY_SIMPLEX, 1.0, (232, 91,13 ))
+            img = cv.rectangle(img, (x, y), (x + w, y + h), (232, 91, 13), 2)
+            cv.putText(img, "", (x, y), cv.FONT_HERSHEY_SIMPLEX, 1.0, (232, 91,13 ))
 
     (_, cnts, hierarchy) = cv.findContours(magenta, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)
     for c in cnts:

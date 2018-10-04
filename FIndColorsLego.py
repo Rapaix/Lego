@@ -24,7 +24,7 @@ def main():
                 return teste
 
     # Aquisição da iamgem
-    img = cv.imread('images/lego.jpg')
+    img = cv.imread('images/legos.jpg')
     copy = cv.resize(img.copy(), (300, 300))
     cv.imshow("img", copy)
     hsv = cv.cvtColor(copy, cv.COLOR_BGR2HSV)
@@ -76,6 +76,12 @@ def main():
 
     testeimg = boundingColor(copy, red, redColor)
     testeimg = boundingColor(copy, yellow, yellowColor)
+    testeimg = boundingColor(copy, blue, blueColor)
+    testeimg = boundingColor(copy, green, greenColor)
+    testeimg = boundingColor(copy, cyan, cyanColor)
+    testeimg = boundingColor(copy, purple,purpleColor)
+    testeimg = boundingColor(copy, magenta, magentaColor)
+
     cv.imshow("testeIMg", testeimg)
     #    cv.imshow("img", img)
     cv.waitKey(0)
