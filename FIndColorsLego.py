@@ -19,12 +19,16 @@ def main():
             area = cv.contourArea(c)
             if area > 300:
                 x, y, w, h = cv.boundingRect(c)
-                print('funcionando')
+                M = cv.moments(c)
+                cX = int(M["m10"] / M["m00"])
+                cY = int(M["m01"] / M["m00"])
+                print('cY:', cY, "cX", cX)
                 teste = cv.rectangle(img2, (x, y), (x + w, y + h), (color), 2)
+                cv.circle(img2, (cX, cY), 1, (255, 255, 255), -1)
                 return teste
 
     # Aquisição da iamgem
-    img = cv.imread('images/legos.jpg')
+    img = cv.imread('images/lego.jpg')
     copy = cv.resize(img.copy(), (300, 300))
     cv.imshow("img", copy)
     hsv = cv.cvtColor(copy, cv.COLOR_BGR2HSV)
@@ -76,11 +80,11 @@ def main():
 
     testeimg = boundingColor(copy, red, redColor)
     testeimg = boundingColor(copy, yellow, yellowColor)
-    testeimg = boundingColor(copy, blue, blueColor)
     testeimg = boundingColor(copy, green, greenColor)
     testeimg = boundingColor(copy, cyan, cyanColor)
     testeimg = boundingColor(copy, purple,purpleColor)
-    testeimg = boundingColor(copy, magenta, magentaColor)
+    #testeimg = boundingColor(copy, blue, blueColor)
+    #testeimg = boundingColor(copy, magenta, magentaColor)
 
     cv.imshow("testeIMg", testeimg)
     #    cv.imshow("img", img)
