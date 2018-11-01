@@ -22,12 +22,12 @@ def main():
                 M = cv.moments(c)
                 cX = int(M["m10"] / M["m00"])
                 cY = int(M["m01"] / M["m00"])
-                print('cY:', cY, "cX", cX)
+                print(color, "cY:", cY, "cX", cX)
                 teste = cv.rectangle(img2, (x, y), (x + w, y + h), (color), 2)
-                cv.circle(img2, (cX, cY), 1, (255, 255, 255), -1)
+                cv.circle(img2, (cX, cY), 1, (color), -1)
                 return teste
 
-    # Aquisição da iamgem
+    # Aquisição da imagem
     img = cv.imread('images/lego.jpg')
     copy = cv.resize(img.copy(), (300, 300))
     cv.imshow("img", copy)
@@ -71,7 +71,7 @@ def main():
     maskTotal = red + yellow + green + cyan + blue + purple + magenta
     colors = cv.bitwise_and(copy, copy, mask=maskTotal)
 
-    cv.imshow(" maskara", cyan)
+    cv.imshow(" maskara", maskTotal)
 
     # TODO  bounding box para cada cor
 
