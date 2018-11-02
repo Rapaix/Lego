@@ -53,7 +53,7 @@ orig = cv.resize(orig,(300, 300))
 cv.imshow("Unsorted", orig)
 
 # sort the contours according to the provided method
-(cnts, boundingBoxes) = sort_contours(cnts, method="botto-to-top")
+(cnts, boundingBoxes) = sort_contours(cnts, method="bottom-to-top")
 
 # loop over the (now sorted) contours and draw them
 for (i, c) in enumerate(cnts):
