@@ -1,7 +1,6 @@
 import cv2 as cv
 import numpy as np
 
-
 redColor = (0, 0, 255)
 yellowColor = (0, 255, 255)
 greenColor = (0, 255, 0)
@@ -9,7 +8,6 @@ cyanColor = (255, 255, 0)
 blueColor = (255, 0, 0)
 purpleColor = (130, 0, 75)
 magentaColor = (255, 0, 255)
-
 
 def boundingColor(img2, maskColor, color):
     (_, cnts, hierarchy) = cv.findContours(maskColor, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)
@@ -24,6 +22,7 @@ def boundingColor(img2, maskColor, color):
             cv.circle(img2, (cX, cY), 1, (color), -1)
             return cv.imshow("teste", teste)
 
+
 img = cv.imread('images/legos.jpg')
 copy = cv.resize(img.copy(), (300, 300))
 hsv = cv.cvtColor(copy, cv.COLOR_BGR2HSV)
@@ -37,10 +36,10 @@ red_upper = np.array([15, 255, 255], np.uint8)
 yellow_lower = np.array([20, 60, 100], np.uint8)
 yellow_upper = np.array([35, 255, 255], np.uint8)
 
-green_lower = np.array([50, 100, 0], np.uint8)
-green_upper = np.array([80, 255, 255], np.uint8)
+green_lower = np.array([25, 60, 0], np.uint8)
+green_upper = np.array([75, 255, 255], np.uint8)
 
-cyan_lower = np.array([75, 100, 0], np.uint8)
+cyan_lower = np.array([80, 100, 0], np.uint8)
 cyan_upper = np.array([95, 255, 255], np.uint8)
 
 blue_lower = np.array([84, 100, 0], np.uint8)
@@ -52,7 +51,11 @@ purple_upper = np.array([165, 255, 255], np.uint8)
 magenta_lower = np.array([170, 100, 0], np.uint8)
 magenta_upper = np.array([180, 255, 255], np.uint8)
 
+white_lower = np.array([[0, 0, 0]])
+white_upper = np.array([[10, 255, 255]])
+
 # range of colors
+
 
 red = cv.inRange(hsv, red_lower, red_upper)
 yellow = cv.inRange(hsv, yellow_lower, yellow_upper)
@@ -63,28 +66,30 @@ purple = cv.inRange(hsv, purple_lower, purple_upper)
 magenta = cv.inRange(hsv, magenta_lower, magenta_upper)
 
 sumRed = red + magenta
-cv.imshow("red", red)
-cv.imshow("magenta", magenta)
+
 
 # soma de todas as ranges para uma imagem
 maskTotal = sumRed + yellow + green + cyan + blue + purple
-edge = cv.Canny(maskTotal, 10 ,200)
-colors = cv.bitwise_and(copy, copy, mask=maskTotal)
 
-cv.imshow(" Sumred", sumRed)
-cv.imshow("dilate", maskTotal)
+
+colors = cv.bitwise_and(copy, copy, mask=maskTotal)
+cv.imshow("colors", colors)
+
+
+
+
+#white = cv.inRange(maskTotal, white_lower,white_upper)
+cv.imshow("mask.jpg", maskTotal)
+edge = cv.Canny(maskTotal, 10 , 200)
+#cv.imshow("",edge)
+
+
+cv.imshow("green", green)
+#cv.imshow(" Sumred", red)
+
 # TODO  bounding box para cada cor
 
-(im2, cnts, hier) = cv.findContours(red, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)
-# cnts = sorted(cnts, key = cv.contourArea, reverse= True)[:10]
-
-#testeimg = boundingColor(copy, red, redColor)
-#testeimg = boundingColor(copy, yellow, yellowColor)
-#testeimg = boundingColor(copy, green, greenColor)
-#testeimg = boundingColor(copy, cyan, cyanColor)
-#testeimg = boundingColor(copy, purple, purpleColor)
-#testeimg = boundingColor(copy, blue, blueColor)
-#testeimg = boundingColor(copy, magenta, magentaColor)
+cv.imshow("mask", maskTotal)
 
 boundingColor(copy, red, redColor)
 boundingColor(copy, yellow, yellowColor)
@@ -96,4 +101,7 @@ boundingColor(copy, magenta, magentaColor)
 
 cv.waitKey(0)
 cv.destroyAllWindows()
+
+
+
 

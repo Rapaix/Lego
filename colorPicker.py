@@ -37,11 +37,13 @@ def main():
     file_path = filedialog.askopenfilename(filetypes = ftypes)
     image_src = cv2.imread(file_path)
     image_src = cv2.resize(image_src, (300,300))
+    print(image_src.shape)
     cv2.imshow("BGR",image_src)
 
     #CREATE THE HSV FROM THE BGR IMAGE
     image_hsv = cv2.cvtColor(image_src,cv2.COLOR_BGR2HSV)
     image_hsv = cv2.resize(image_hsv, (300, 300))
+    print(image_hsv.shape)
     cv2.imshow("HSV",image_hsv)
 
     #CALLBACK FUNCTION

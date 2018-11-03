@@ -31,7 +31,7 @@ def main():
                 return cv.imshow("teste", teste)
 
     # Aquisição da imagem
-    img = cv.imread('images/legos.jpg')
+    img = cv.imread('images/lego.jpg')
     copy = cv.resize(img.copy(), (300, 300))
     cv.imshow("img", copy)
     hsv = cv.cvtColor(copy, cv.COLOR_BGR2HSV)
@@ -93,6 +93,7 @@ def main():
     #testeimg = boundingColor(copy, magenta, magentaColor)
 
     print("Escolhar o highlight\n 1- amarelo\n 2- vermelho\n 3- verde\n 4- cyan\n 5-roxo\n 6- azul\n 7- magenta\n 0- todas as cores")
+
     op = int(input("Digite o valor:\n"))
 
     if op == 1:
@@ -117,6 +118,9 @@ def main():
         boundingColor(copy, purple, purpleColor)
         boundingColor(copy, blue, blueColor)
         boundingColor(copy, magenta, magentaColor)
+
+
+
 
     print("log:", log)
     print(sorted(log.values()))
