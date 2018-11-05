@@ -26,7 +26,7 @@ def draw_contour(copy, c, i):
     cY = int(M["m01"] / M["m00"])
 
     cv.putText(copy,"#{}".format(i+1) , (cX - 20, cY), cv.FONT_HERSHEY_SIMPLEX, 1.0, (255,255,255),2)
-
+    cv.
     return copy
 
 img = cv.imread("images/lego.jpg")

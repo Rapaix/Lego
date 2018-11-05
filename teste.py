@@ -99,6 +99,10 @@ boundingColor(copy, purple, purpleColor)
 boundingColor(copy, blue, blueColor)
 boundingColor(copy, magenta, magentaColor)
 
+
+
+
+
 cv.waitKey(0)
 cv.destroyAllWindows()
 

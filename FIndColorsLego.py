@@ -79,55 +79,47 @@ def main():
 
     cv.imshow(" maskara", blue)
 
-    # TODO  bounding box para cada cor
-
-    (im2, cnts, hier) = cv.findContours(red, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)
-    # cnts = sorted(cnts, key = cv.contourArea, reverse= True)[:10]
-
-    #testeimg = boundingColor(copy, red, redColor)
-    #testeimg = boundingColor(copy, yellow, yellowColor)
-    #testeimg = boundingColor(copy, green, greenColor)
-    #testeimg = boundingColor(copy, cyan, cyanColor)
-    #testeimg = boundingColor(copy, purple, purpleColor)
-    #testeimg = boundingColor(copy, blue, blueColor)
-    #testeimg = boundingColor(copy, magenta, magentaColor)
-
-    print("Escolhar o highlight\n 1- amarelo\n 2- vermelho\n 3- verde\n 4- cyan\n 5-roxo\n 6- azul\n 7- magenta\n 0- todas as cores")
-
-    op = int(input("Digite o valor:\n"))
-
-    if op == 1:
-        boundingColor(copy, yellow, yellowColor)
-    elif op == 2:
-        boundingColor(copy, red, redColor)
-    elif op == 3:
-        boundingColor(copy, green, greenColor)
-    elif op == 4:
-        boundingColor(copy, cyan, cyanColor)
-    elif op == 5:
-        boundingColor(copy, purple, purpleColor)
-    elif op == 6:
-        boundingColor(copy, blue, blueColor)
-    elif op == 7:
-        boundingColor(copy, magenta, magentaColor)
-    elif op == 0:
-        boundingColor(copy, red, redColor)
-        boundingColor(copy, yellow, yellowColor)
-        boundingColor(copy, green, greenColor)
-        boundingColor(copy, cyan, cyanColor)
-        boundingColor(copy, purple, purpleColor)
-        boundingColor(copy, blue, blueColor)
-        boundingColor(copy, magenta, magentaColor)
 
 
+
+    print("Escolhar o highlight\n 1- amarelo\n 2- vermelho\n 3- verde\n 4- cyan\n 5-roxo\n 6- azul\n 7- magenta\n 8 - todas as cores\n 0- Sair")
+
+    #boundingColor(copy, red, redColor)
+    #boundingColor(copy, yellow, yellowColor)
+    #boundingColor(copy, green, greenColor)
+    #boundingColor(copy, cyan, cyanColor)
+    #boundingColor(copy, purple, purpleColor)
+    #boundingColor(copy, blue, blueColor)
+    #boundingColor(copy, magenta, magentaColor)
+
+    while(1):
+        k = cv.waitKey(33)
+        if k == 49:
+            boundingColor(copy.copy(), yellow, yellowColor)
+        elif k == 50:
+            boundingColor(copy.copy(), red, redColor)
+        elif k == 51:
+            boundingColor(copy.copy(), green, greenColor)
+        elif k == 52:
+            boundingColor(copy.copy(), cyan, cyanColor)
+        elif k == 53:
+            boundingColor(copy.copy(), purple, purpleColor)
+        elif k == 54:
+            boundingColor(copy.copy(), blue, blueColor)
+        elif k == 55:
+            boundingColor(copy.copy(), magenta, magentaColor)
+        elif k == 27:
+            break
+
+        frame = copy.copy()
+        #for c,v in enumerate(dict):
+         #   if v:
+         #       dict[c]["color"]
 
 
     print("log:", log)
     print(sorted(log.values()))
 
-
-    #cv.imshow("testeIMg", testeimg)
-    #    cv.imshow("img", img)
     cv.waitKey(0)
     cv.destroyAllWindows()
 
