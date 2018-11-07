@@ -1,4 +1,4 @@
-import tesseract as ocr
+import pytesseract as ocr
 
 from PIL import Image
 
